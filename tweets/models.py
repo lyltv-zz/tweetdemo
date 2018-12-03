@@ -90,6 +90,7 @@ class Tweet(models.Model):
     #     return super(Tweet, self).clean(*args, **kwargs)
 
 
+
 def tweet_save_receiver(sender, instance, created, *args, **kwargs):
     if created and not instance.parent:
         # notify a user
@@ -101,6 +102,8 @@ def tweet_save_receiver(sender, instance, created, *args, **kwargs):
         hashtags = re.findall(hash_regex, instance.content)
         parsed_hashtags.send(sender=instance.__class__, hashtag_list=hashtags)
         # send hashtag signal to user here.
+
+
 
 
 post_save.connect(tweet_save_receiver, sender=Tweet)

@@ -23,7 +23,7 @@ from hashtags.api.views import TagTweetAPIView
 from hashtags.views import HashTagView
 from tweets.api.views import SearchTweetAPIView
 from tweets.views import TweetListView
-from .views import home, SearchView
+from .views import home, SearchView, logout_view
 from accounts.views import UserRegisterView
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
@@ -31,6 +31,7 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls), #admin/
     url(r'^$', TweetListView.as_view(), name='home'), #/
+    url(r'^logout/$', logout_view, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
     url(r'^search/$', SearchView.as_view(), name='search'), #/
     url(r'^tags/(?P<hashtag>.*)/$', HashTagView.as_view(), name='hashtag'),
     url(r'^tweet/', include('tweets.urls', namespace='tweet')),
