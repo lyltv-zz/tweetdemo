@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 
 # Create your models here.
 
+
 class UserProfileManager(models.Manager):
     use_for_related_fields = True
 
@@ -36,10 +37,9 @@ class UserProfileManager(models.Manager):
         return False
 
 
-
 class UserProfile(models.Model):
-    user        = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile') # user.profile 
-    following   = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='followed_by') 
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')  # user.profile
+    following = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='followed_by')
     # user.profile.following -- users i follow
     # user.followed_by -- users that follow me -- reverse relationship
 
@@ -71,6 +71,7 @@ def post_save_user_receiver(sender, instance, created, *args, **kwargs):
         new_profile = UserProfile.objects.get_or_create(user=instance)
         # celery + redis
         # deferred task
+
 
 post_save.connect(post_save_user_receiver, sender=settings.AUTH_USER_MODEL)
 
