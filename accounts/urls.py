@@ -9,7 +9,6 @@ from .views import (
     )
 
 urlpatterns = [
-    url(r'^', include('django.contrib,auth.urls')),
     # url(r'^search/$', TweetListView.as_view(), name='list'), # /tweet/
     # url(r'^create/$', TweetCreateView.as_view(), name='create'), # /tweet/create/
     url(r'^(?P<username>[\w.@+-]+)/$', UserDetailView.as_view(), name='detail'), # /tweet/1/
