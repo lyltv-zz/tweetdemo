@@ -27,11 +27,12 @@ from .views import home, SearchView, logout_view
 from accounts.views import UserRegisterView
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
+    url(r'^', include('accounts.urls', namespace='profiles')),
     url(r'^register/$', UserRegisterView.as_view(), name='register'),  # /
-
     url(r'^admin/', admin.site.urls), #admin/
     url(r'^$', TweetListView.as_view(), name='home'), #/
     url(r'^logout/$', logout_view, {'next_page': settings.LOGOUT_REDIRECT_URL}, name='logout'),
+
     url(r'^search/$', SearchView.as_view(), name='search'), #/
     url(r'^tags/(?P<hashtag>.*)/$', HashTagView.as_view(), name='hashtag'),
     url(r'^tweet/', include('tweets.urls', namespace='tweet')),
@@ -39,7 +40,6 @@ urlpatterns = [
     url(r'^api/search/$', SearchTweetAPIView.as_view(), name='search-api'), 
     url(r'^api/tweet/', include('tweets.api.urls', namespace='tweet-api')),
     url(r'^api/', include('accounts.api.urls', namespace='profiles-api')),
-    url(r'^', include('accounts.urls', namespace='profiles')),
 ]
 
 

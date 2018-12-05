@@ -7,9 +7,11 @@ from rest_framework import serializers
 
 User = get_user_model()
 
+
 class UserDisplaySerializer(serializers.ModelSerializer):
     follower_count = serializers.SerializerMethodField()
     url = serializers.SerializerMethodField()
+
     class Meta:
         model = User
         fields = [
@@ -26,4 +28,3 @@ class UserDisplaySerializer(serializers.ModelSerializer):
 
     def get_url(self, obj):
         return reverse_lazy("profiles:detail", kwargs={"username": obj.username })
-
